@@ -24,24 +24,24 @@
     {{-- Page Header --}}
     <div class="flex items-center justify-between mb-6">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">Order Management</h1>
-            <p class="text-gray-600 mt-1">Review, fulfill, and manage customer orders across all channels.</p>
+            <h1 class="text-2xl font-bold text-gray-900">{{ __('Order Management') }}</h1>
+            <p class="text-gray-600 mt-1">{{ __('Review, fulfill, and manage customer orders across all channels.') }}</p>
         </div>
         <div class="flex items-center gap-3">
             <button
                 wire:click="exportOrders"
-                title="Download orders as CSV"
+                title="{{ __('Download orders as CSV') }}"
                 class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 text-sm font-medium"
             >
-                Export Orders
+                {{ __('Export Orders') }}
             </button>
             <button
                 wire:click="syncInventory"
-                title="Sync stock levels with warehouse"
-                aria-label="Synchronize inventory"
+                title="{{ __('Sync stock levels with warehouse') }}"
+                aria-label="{{ __('Synchronize inventory') }}"
                 class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium"
             >
-                Sync Inventory
+                {{ __('Sync Inventory') }}
             </button>
         </div>
     </div>
@@ -49,23 +49,23 @@
     {{-- Stats Cards --}}
     <div class="grid grid-cols-5 gap-4 mb-6">
         <div class="bg-white rounded-lg shadow p-4 text-center">
-            <span class="text-sm text-gray-500">Total Orders</span>
+            <span class="text-sm text-gray-500">{{ __('Total Orders') }}</span>
             <p class="text-2xl font-bold">{{ $totalOrders }}</p>
         </div>
         <div class="bg-white rounded-lg shadow p-4 text-center">
-            <span class="text-sm text-gray-500">Awaiting Fulfillment</span>
+            <span class="text-sm text-gray-500">{{ __('Awaiting Fulfillment') }}</span>
             <p class="text-2xl font-bold text-yellow-600">{{ $awaitingCount }}</p>
         </div>
         <div class="bg-white rounded-lg shadow p-4 text-center">
-            <span class="text-sm text-gray-500">Shipped Today</span>
+            <span class="text-sm text-gray-500">{{ __('Shipped Today') }}</span>
             <p class="text-2xl font-bold text-blue-600">{{ $shippedTodayCount }}</p>
         </div>
         <div class="bg-white rounded-lg shadow p-4 text-center">
-            <span class="text-sm text-gray-500">Revenue This Month</span>
+            <span class="text-sm text-gray-500">{{ __('Revenue This Month') }}</span>
             <p class="text-2xl font-bold text-green-600">${{ number_format($monthlyRevenue, 2) }}</p>
         </div>
         <div class="bg-white rounded-lg shadow p-4 text-center">
-            <span class="text-sm text-gray-500">Refund Requests</span>
+            <span class="text-sm text-gray-500">{{ __('Refund Requests') }}</span>
             <p class="text-2xl font-bold text-red-600">{{ $refundRequestCount }}</p>
         </div>
     </div>
@@ -74,51 +74,51 @@
     <div class="bg-white rounded-lg shadow p-4 mb-6">
         <div class="flex items-center gap-4">
             <div class="flex-1">
-                <label for="order-search" class="sr-only">Search orders</label>
+                <label for="order-search" class="sr-only">{{ __('Search orders') }}</label>
                 <input
                     wire:model.live.debounce.300ms="search"
                     id="order-search"
                     type="search"
-                    placeholder="Search by order number, customer name, or email..."
+                    placeholder="{{ __('Search by order number, customer name, or email...') }}"
                     class="w-full rounded-lg border-gray-300 shadow-sm"
                 />
             </div>
             <div>
-                <label for="status-filter" class="sr-only">Filter by status</label>
+                <label for="status-filter" class="sr-only">{{ __('Filter by status') }}</label>
                 <select wire:model.live="statusFilter" id="status-filter" class="rounded-lg border-gray-300 shadow-sm">
-                    <option value="all">All Statuses</option>
-                    <option value="pending">Pending Payment</option>
-                    <option value="processing">Processing</option>
-                    <option value="shipped">Shipped</option>
-                    <option value="delivered">Delivered</option>
-                    <option value="cancelled">Cancelled</option>
-                    <option value="refunded">Refunded</option>
+                    <option value="all">{{ __('All Statuses') }}</option>
+                    <option value="pending">{{ __('Pending Payment') }}</option>
+                    <option value="processing">{{ __('Processing') }}</option>
+                    <option value="shipped">{{ __('Shipped') }}</option>
+                    <option value="delivered">{{ __('Delivered') }}</option>
+                    <option value="cancelled">{{ __('Cancelled') }}</option>
+                    <option value="refunded">{{ __('Refunded') }}</option>
                 </select>
             </div>
             <div>
-                <label for="channel-filter" class="sr-only">Filter by sales channel</label>
+                <label for="channel-filter" class="sr-only">{{ __('Filter by sales channel') }}</label>
                 <select wire:model.live="channelFilter" id="channel-filter" class="rounded-lg border-gray-300 shadow-sm">
-                    <option value="all">All Channels</option>
-                    <option value="web">Website</option>
-                    <option value="mobile">Mobile App</option>
-                    <option value="pos">In-Store POS</option>
-                    <option value="marketplace">Marketplace</option>
+                    <option value="all">{{ __('All Channels') }}</option>
+                    <option value="web">{{ __('Website') }}</option>
+                    <option value="mobile">{{ __('Mobile App') }}</option>
+                    <option value="pos">{{ __('In-Store POS') }}</option>
+                    <option value="marketplace">{{ __('Marketplace') }}</option>
                 </select>
             </div>
             <div>
                 <x-input
                     type="date"
                     wire:model.live="dateFrom"
-                    :placeholder="'Start date'"
-                    aria-label="Filter from date"
+                    :placeholder="__('Start date')"
+                    aria-label="{{ __('Filter from date') }}"
                 />
             </div>
             <div>
                 <x-input
                     type="date"
                     wire:model.live="dateTo"
-                    :placeholder="'End date'"
-                    aria-label="Filter to date"
+                    :placeholder="__('End date')"
+                    aria-label="{{ __('Filter to date') }}"
                 />
             </div>
         </div>
@@ -126,15 +126,15 @@
         {{-- Active Filter Tags --}}
         @if ($statusFilter !== 'all' || $channelFilter !== 'all' || $search)
             <div class="flex items-center gap-2 mt-3 pt-3 border-t border-gray-100">
-                <span class="text-xs text-gray-500">Active filters:</span>
+                <span class="text-xs text-gray-500">{{ __('Active filters:') }}</span>
                 @if ($search)
                     <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700">
-                        Search: {{ $search }}
-                        <button wire:click="$set('search', '')" class="hover:text-blue-900">&times;</button>
+                        {{ __('Search:') }} {{ $search }}
+                        <button wire:click="$set('search', '')" class="hover:text-blue-900">{{ __('&times;') }}</button>
                     </span>
                 @endif
                 <button wire:click="clearFilters" class="text-xs text-red-500 hover:underline ml-auto">
-                    Clear all filters
+                    {{ __('Clear all filters') }}
                 </button>
             </div>
         @endif
@@ -147,21 +147,21 @@
             <button
                 wire:click="bulkMarkShipped"
                 class="text-sm bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700"
-                title="Mark selected orders as shipped"
+                title="{{ __('Mark selected orders as shipped') }}"
             >
-                Mark as Shipped
+                {{ __('Mark as Shipped') }}
             </button>
             <button
                 wire:click="bulkPrintLabels"
                 class="text-sm bg-gray-600 text-white px-3 py-1.5 rounded-lg hover:bg-gray-700"
             >
-                Print Shipping Labels
+                {{ __('Print Shipping Labels') }}
             </button>
             <button
                 @click="bulkSelected = []"
                 class="text-sm text-gray-500 hover:text-gray-700"
             >
-                Deselect All
+                {{ __('Deselect All') }}
             </button>
         </div>
     </div>
@@ -189,37 +189,37 @@
             <thead>
                 <tr class="bg-gray-50 border-b border-gray-200">
                     <th class="px-4 py-3 text-left w-10">
-                        <input type="checkbox" class="rounded border-gray-300" aria-label="Select all orders" />
+                        <input type="checkbox" class="rounded border-gray-300" aria-label="{{ __('Select all orders') }}" />
                     </th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <button wire:click="sortBy('order_number')" class="hover:text-gray-900 flex items-center gap-1">
-                            Order Number
+                            {{ __('Order Number') }}
                             @if ($sortField === 'order_number')
                                 <span class="text-blue-600">{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
                             @endif
                         </button>
                     </th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Customer') }}</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Items') }}</th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <button wire:click="sortBy('total')" class="hover:text-gray-900 flex items-center gap-1">
-                            Total
+                            {{ __('Total') }}
                             @if ($sortField === 'total')
                                 <span class="text-blue-600">{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
                             @endif
                         </button>
                     </th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shipping</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Status') }}</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Shipping') }}</th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <button wire:click="sortBy('created_at')" class="hover:text-gray-900 flex items-center gap-1">
-                            Date
+                            {{ __('Date') }}
                             @if ($sortField === 'created_at')
                                 <span class="text-blue-600">{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
                             @endif
                         </button>
                     </th>
-                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -239,7 +239,7 @@
                                 #{{ $order->order_number }}
                             </a>
                             @if ($order->is_gift)
-                                <span class="ml-1 text-xs text-pink-600" title="This order is a gift">Gift</span>
+                                <span class="ml-1 text-xs text-pink-600" title="{{ __('This order is a gift') }}">{{ __('Gift') }}</span>
                             @endif
                         </td>
                         <td class="px-4 py-3">
@@ -250,15 +250,15 @@
                         </td>
                         <td class="px-4 py-3 text-sm text-gray-600">
                             @if ($order->items_count === 1)
-                                1 item
+                                {{ __('1 item') }}
                             @else
-                                {{ $order->items_count }} items
+                                {{ $order->items_count }} {{ __('Items') }}
                             @endif
                         </td>
                         <td class="px-4 py-3 text-sm font-medium text-gray-900">
                             ${{ number_format($order->total, 2) }}
                             @if ($order->discount_amount > 0)
-                                <span class="text-xs text-green-600 block">Discount applied</span>
+                                <span class="text-xs text-green-600 block">{{ __('Discount applied') }}</span>
                             @endif
                         </td>
                         <td class="px-4 py-3">
@@ -274,10 +274,10 @@
                                     href="https://track.example.com/{{ $order->tracking_number }}"
                                     target="_blank"
                                     class="block text-xs text-blue-500 hover:underline"
-                                    title="Track this shipment"
+                                    title="{{ __('Track this shipment') }}"
                                     aria-label="Track shipment for order {{ $order->order_number }}"
                                 >
-                                    Track Package
+                                    {{ __('Track Package') }}
                                 </a>
                             @endif
                         </td>
@@ -292,9 +292,9 @@
                                         wire:click="markAsShipped({{ $order->id }})"
                                         wire:confirm="Mark this order as shipped? The customer will receive a notification email."
                                         class="text-sm text-blue-600 hover:underline"
-                                        title="Ship this order"
+                                        title="{{ __('Ship this order') }}"
                                     >
-                                        Ship Order
+                                        {{ __('Ship Order') }}
                                     </button>
                                 @endif
 
@@ -303,7 +303,7 @@
                                         wire:click="capturePayment({{ $order->id }})"
                                         class="text-sm text-green-600 hover:underline"
                                     >
-                                        Capture Payment
+                                        {{ __('Capture Payment') }}
                                     </button>
                                 @endif
 
@@ -312,7 +312,7 @@
                                         @click="showRefundModal = true; selectedOrder = {{ $order->id }}"
                                         class="text-sm text-orange-600 hover:underline"
                                     >
-                                        Issue Refund
+                                        {{ __('Issue Refund') }}
                                     </button>
                                 @endif
 
@@ -322,7 +322,7 @@
                                         wire:confirm="Are you sure you want to cancel this order? This action cannot be undone and the customer will be notified."
                                         class="text-sm text-red-600 hover:underline"
                                     >
-                                        Cancel
+                                        {{ __('Cancel') }}
                                     </button>
                                 @endif
 
@@ -330,9 +330,9 @@
                                     href="/admin/orders/{{ $order->id }}"
                                     wire:navigate
                                     class="text-sm text-gray-500 hover:underline"
-                                    title="View full order details"
+                                    title="{{ __('View full order details') }}"
                                 >
-                                    View Details
+                                    {{ __('View Details') }}
                                 </a>
                             </div>
                         </td>
@@ -340,15 +340,15 @@
                 @empty
                     <tr>
                         <td colspan="9" class="px-6 py-16 text-center">
-                            <img src="/images/empty-orders.svg" alt="No orders illustration" class="w-32 h-32 mx-auto mb-4 opacity-50" />
-                            <p class="text-gray-500 text-lg font-medium">No orders found</p>
-                            <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or check back later for new orders.</p>
+                            <img src="/images/empty-orders.svg" alt="{{ __('No orders illustration') }}" class="w-32 h-32 mx-auto mb-4 opacity-50" />
+                            <p class="text-gray-500 text-lg font-medium">{{ __('No orders found') }}</p>
+                            <p class="text-gray-400 text-sm mt-1">{{ __('Try adjusting your filters or check back later for new orders.') }}</p>
                             @if ($search)
                                 <button
                                     wire:click="$set('search', '')"
                                     class="mt-3 text-sm text-blue-600 hover:underline"
                                 >
-                                    Clear search and show all orders
+                                    {{ __('Clear search and show all orders') }}
                                 </button>
                             @endif
                         </td>
@@ -360,7 +360,7 @@
         @if ($orders->hasPages())
             <div class="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
                 <p class="text-sm text-gray-500">
-                    Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of {{ $orders->total() }} orders
+                    {{ __('Showing') }} {{ $orders->firstItem() }} {{ __('to') }} {{ $orders->lastItem() }} {{ __('of') }} {{ $orders->total() }} {{ __('orders') }}
                 </p>
                 {{ $orders->links() }}
             </div>
@@ -375,33 +375,33 @@
         @keydown.escape.window="showRefundModal = false"
     >
         <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6" @click.outside="showRefundModal = false">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Process Refund</h3>
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ __('Process Refund') }}</h3>
             <p class="text-sm text-gray-600 mb-4">
-                Please provide a reason for the refund. The customer will receive a confirmation email once processed.
+                {{ __('Please provide a reason for the refund. The customer will receive a confirmation email once processed.') }}
             </p>
 
             <div class="mb-4">
-                <label for="refund-reason" class="block text-sm font-medium text-gray-700 mb-1">Reason for refund</label>
+                <label for="refund-reason" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Reason for refund') }}</label>
                 <select id="refund-reason" x-model="refundReason" class="w-full rounded-lg border-gray-300 shadow-sm">
-                    <option value="">Select a reason...</option>
-                    <option value="defective">Defective or damaged product</option>
-                    <option value="wrong_item">Wrong item received</option>
-                    <option value="not_as_described">Item not as described</option>
-                    <option value="changed_mind">Customer changed their mind</option>
-                    <option value="duplicate">Duplicate order</option>
-                    <option value="other">Other</option>
+                    <option value="">{{ __('Select a reason...') }}</option>
+                    <option value="defective">{{ __('Defective or damaged product') }}</option>
+                    <option value="wrong_item">{{ __('Wrong item received') }}</option>
+                    <option value="not_as_described">{{ __('Item not as described') }}</option>
+                    <option value="changed_mind">{{ __('Customer changed their mind') }}</option>
+                    <option value="duplicate">{{ __('Duplicate order') }}</option>
+                    <option value="other">{{ __('Other') }}</option>
                 </select>
             </div>
 
             <div class="mb-4">
-                <label for="refund-notes" class="block text-sm font-medium text-gray-700 mb-1">Additional notes</label>
+                <label for="refund-notes" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Additional notes') }}</label>
                 <textarea
                     id="refund-notes"
                     wire:model="refundNotes"
                     rows="3"
-                    placeholder="Add any relevant details about this refund..."
+                    placeholder="{{ __('Add any relevant details about this refund...') }}"
                     class="w-full rounded-lg border-gray-300 shadow-sm"
-                    aria-placeholder="Enter refund details"
+                    aria-placeholder="{{ __('Enter refund details') }}"
                 ></textarea>
             </div>
 
@@ -409,29 +409,29 @@
                 type="number"
                 wire:model="refundAmount"
                 :label="__('Refund Amount')"
-                :placeholder="'Enter amount'"
-                :description="'Leave blank for a full refund'"
-                aria-label="Refund amount in dollars"
+                :placeholder="__('Enter amount')"
+                :description="__('Leave blank for a full refund')"
+                aria-label="{{ __('Refund amount in dollars') }}"
             />
 
             <livewire:shared.currency-selector
-                :label="'Select currency'"
+                :label="__('Select currency')"
                 :default="'USD'"
-                :description="$order->currency ?? 'USD'"
+                :description="$order->currency ?? __('USD')"
             />
 
             <x-button
-                :title="$hasShipped ? 'Return shipping required' : 'No return needed'"
-                :aria-label="'Submit refund for order #' . $order->order_number"
+                :title="$hasShipped ? __('Return shipping required') : __('No return needed')"
+                :aria-label="__('Submit refund for order #') . $order->order_number"
             />
 
             <x-dropdown
-                :placeholder="$isPartialRefund ? 'Choose items to refund' : 'Full refund selected'"
+                :placeholder="$isPartialRefund ? __('Choose items to refund') : __('Full refund selected')"
             />
 
             <x-alert
-                :title="'Refund Policy Notice'"
-                :description="'Refunds are typically processed within 5-7 business days. The customer will be notified via email.'"
+                :title="__('Refund Policy Notice')"
+                :description="__('Refunds are typically processed within 5-7 business days. The customer will be notified via email.')"
             />
 
             <div class="flex items-center justify-end gap-3 mt-6">
@@ -439,7 +439,7 @@
                     @click="showRefundModal = false"
                     class="px-4 py-2 text-sm text-gray-700 hover:text-gray-900"
                 >
-                    Cancel
+                    {{ __('Cancel') }}
                 </button>
                 <button
                     wire:click="processRefund(selectedOrder)"
@@ -447,7 +447,7 @@
                     class="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700"
                     :disabled="!refundReason"
                 >
-                    Confirm Refund
+                    {{ __('Confirm Refund') }}
                 </button>
             </div>
         </div>
@@ -460,9 +460,9 @@
                 x-data
                 @click="$dispatch('show-shortcuts')"
                 class="text-xs text-gray-400 hover:text-gray-600"
-                title="View available keyboard shortcuts"
+                title="{{ __('View available keyboard shortcuts') }}"
             >
-                Press ? for keyboard shortcuts
+                {{ __('Press ? for keyboard shortcuts') }}
             </button>
         </div>
     @endauth
@@ -470,9 +470,9 @@
     @guest
         <div class="mt-6 text-center">
             <p class="text-sm text-gray-500">
-                You are viewing this page in read-only mode.
-                <a href="{{ route('login') }}" class="text-blue-600 hover:underline">Sign in</a>
-                to manage orders.
+                {{ __('You are viewing this page in read-only mode.') }}
+                <a href="{{ route('login') }}" class="text-blue-600 hover:underline">{{ __('Sign in') }}</a>
+                {{ __('to manage orders.') }}
             </p>
         </div>
     @endguest
@@ -480,7 +480,7 @@
     <script>
         // Do not translate anything in script tags
         document.addEventListener('order-shipped', () => {
-            console.log('Order shipped successfully');
+            console.log( @json(__("Order shipped successfully")));
         });
     </script>
 
