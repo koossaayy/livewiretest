@@ -29,7 +29,7 @@ new class extends Component
     public function markAllRead(): void
     {
         auth()->user()->unreadNotifications->markAsRead();
-        session()->flash('success', 'All notifications marked as read.');
+        session()->flash('success', __('All notifications marked as read.'));
     }
 
     #[On('task-saved')]
@@ -38,8 +38,7 @@ new class extends Component
     {
         unset($this->unreadCount, $this->notifications);
     }
-};
-?>
+};?>
 
 <div class="relative" x-data="{ open: $wire.entangle('dropdownOpen') }">
     {{-- Bell Icon Button --}}
@@ -69,10 +68,10 @@ new class extends Component
         class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 z-50"
     >
         <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-            <h3 class="text-sm font-semibold text-gray-900">Notifications</h3>
+            <h3 class="text-sm font-semibold text-gray-900">{{ __('Notifications') }}</h3>
             @if ($this->unreadCount > 0)
                 <button wire:click="markAllRead" class="text-xs text-blue-600 hover:underline">
-                    Mark all as read
+                    {{ __('Mark all as read') }}
                 </button>
             @endif
         </div>
@@ -90,7 +89,7 @@ new class extends Component
                             wire:click="markAsRead('{{ $notification->id }}')"
                             class="text-xs text-blue-600 hover:underline mt-1"
                         >
-                            Mark as read
+                            {{ __('Mark as read') }}
                         </button>
                     @endif
                 </div>
@@ -99,8 +98,8 @@ new class extends Component
                     <svg class="w-8 h-8 text-gray-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-2.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 007.586 13H5" />
                     </svg>
-                    <p class="text-sm text-gray-500">No new notifications</p>
-                    <p class="text-xs text-gray-400 mt-1">You're all caught up!</p>
+                    <p class="text-sm text-gray-500">{{ __('No new notifications') }}</p>
+                    <p class="text-xs text-gray-400 mt-1">{{ __("You're all caught up!") }}</p>
                 </div>
             @endforelse
         </div>
@@ -108,7 +107,7 @@ new class extends Component
         @if ($this->notifications->isNotEmpty())
             <div class="px-4 py-3 border-t border-gray-200 text-center">
                 <a href="/notifications" wire:navigate class="text-sm text-blue-600 hover:underline">
-                    View All Notifications
+                    {{ __('View All Notifications') }}
                 </a>
             </div>
         @endif

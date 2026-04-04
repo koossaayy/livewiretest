@@ -15,24 +15,24 @@
     {{-- Page Header --}}
     <div class="flex items-center justify-between mb-6">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">User Management</h1>
-            <p class="text-gray-600 mt-1">Manage registered users and their permissions.</p>
+            <h1 class="text-2xl font-bold text-gray-900">{{ __('User Management') }}</h1>
+            <p class="text-gray-600 mt-1">{{ __('Manage registered users and their permissions.') }}</p>
         </div>
         <div class="flex items-center gap-3">
             <button
                 wire:click="exportUsers"
                 class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 text-sm font-medium"
             >
-                Export Users
+                {{ __('Export Users') }}
             </button>
-            <span class="text-sm text-gray-500">{{ $this->userCount }} total users</span>
+            <span class="text-sm text-gray-500">{{ $this->userCount }} {{ __('total users') }}</span>
         </div>
     </div>
 
     {{-- Filters --}}
     <div class="flex items-center gap-4 mb-6">
         <div class="flex-1">
-            <label for="user-search" class="sr-only">Search users</label>
+            <label for="user-search" class="sr-only">{{ __('Search users') }}</label>
             <input
                 wire:model.live.debounce.300ms="search"
                 id="user-search"
@@ -42,30 +42,29 @@
             />
         </div>
         <div>
-            <label for="role-filter" class="sr-only">Filter by role</label>
+            <label for="role-filter" class="sr-only">{{ __('Filter by role') }}</label>
             <select wire:model.live="roleFilter" id="role-filter" class="rounded-lg border-gray-300 shadow-sm">
-                <option value="all">All Roles</option>
-                <option value="admin">Administrators</option>
-                <option value="manager">Managers</option>
-                <option value="member">Members</option>
+                <option value="all">{{ __('All Roles') }}</option>
+                <option value="admin">{{ __('Administrators') }}</option>
+                <option value="manager">{{ __('Managers') }}</option>
+                <option value="member">{{ __('Members') }}</option>
             </select>
         </div>
     </div>
 
     @php
         $roleLabels = [
-            'admin' => 'Administrator',
-            'manager' => 'Manager',
-            'member' => 'Member',
-            'viewer' => 'View Only',
+            'admin' => __('Administrator'),
+            'manager' => __('Manager'),
+            'member' => __('Member'),
+            'viewer' => __('View Only'),
         ];
 
         $statusBadgeClasses = [
             'active' => 'bg-green-100 text-green-800',
             'suspended' => 'bg-red-100 text-red-800',
             'pending' => 'bg-yellow-100 text-yellow-800',
-        ];
-    @endphp
+        ];@endphp
 
     {{-- Users Table --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
@@ -74,7 +73,7 @@
                 <tr class="bg-gray-50 border-b border-gray-200">
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <button wire:click="sortBy('name')" class="hover:text-gray-900 flex items-center gap-1">
-                            Name
+                            {{ __('Name') }}
                             @if ($sortField === 'name')
                                 <span class="text-blue-600">{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
                             @endif
@@ -82,23 +81,23 @@
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <button wire:click="sortBy('email')" class="hover:text-gray-900 flex items-center gap-1">
-                            Email Address
+                            {{ __('Email Address') }}
                             @if ($sortField === 'email')
                                 <span class="text-blue-600">{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
                             @endif
                         </button>
                     </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Role') }}</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Status') }}</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <button wire:click="sortBy('created_at')" class="hover:text-gray-900 flex items-center gap-1">
-                            Joined
+                            {{ __('Joined') }}
                             @if ($sortField === 'created_at')
                                 <span class="text-blue-600">{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
                             @endif
                         </button>
                     </th>
-                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -123,11 +122,11 @@
                         <td class="px-6 py-4 text-sm">
                             @if ($user->suspended_at)
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusBadgeClasses['suspended'] }}">
-                                    Suspended
+                                    {{ __('Suspended') }}
                                 </span>
                             @else
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusBadgeClasses['active'] }}">
-                                    Active
+                                    {{ __('Active') }}
                                 </span>
                             @endif
                         </td>
@@ -136,14 +135,14 @@
                         </td>
                         <td class="px-6 py-4 text-right space-x-2">
                             <a href="/admin/users/{{ $user->id }}" wire:navigate class="text-sm text-blue-600 hover:underline">
-                                View Profile
+                                {{ __('View Profile') }}
                             </a>
                             @if ($user->suspended_at)
                                 <button
                                     wire:click="reactivateUser({{ $user->id }})"
                                     class="text-sm text-green-600 hover:underline"
                                 >
-                                    Reactivate
+                                    {{ __('Reactivate') }}
                                 </button>
                             @else
                                 <button
@@ -151,7 +150,7 @@
                                     wire:confirm="Are you sure you want to suspend this user?"
                                     class="text-sm text-yellow-600 hover:underline"
                                 >
-                                    Suspend
+                                    {{ __('Suspend') }}
                                 </button>
                             @endif
                             <button
@@ -159,15 +158,15 @@
                                 wire:confirm="This will permanently delete the user and all their data. This cannot be undone. Continue?"
                                 class="text-sm text-red-600 hover:underline"
                             >
-                                Delete
+                                {{ __('Delete') }}
                             </button>
                         </td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="6" class="px-6 py-12 text-center">
-                            <p class="text-gray-500 text-lg">No users found</p>
-                            <p class="text-gray-400 text-sm mt-1">Try adjusting your search or filter criteria.</p>
+                            <p class="text-gray-500 text-lg">{{ __('No users found') }}</p>
+                            <p class="text-gray-400 text-sm mt-1">{{ __('Try adjusting your search or filter criteria.') }}</p>
                         </td>
                     </tr>
                 @endforelse
@@ -182,8 +181,7 @@
     </div>
 
     @php
-        $exportNote = 'Exported data includes name, email, role, and join date only.';
-    @endphp
+        $exportNote = __('Exported data includes name, email, role, and join date only.');@endphp
 
     <p class="text-sm text-gray-400 mt-4 text-center">
         {{ __('Showing :from to :to of :total users', ['from' => $users->firstItem() ?? 0, 'to' => $users->lastItem() ?? 0, 'total' => $users->total()]) }}
