@@ -58,7 +58,7 @@ new #[Title('Profile settings')] class extends Component {
 
         $user->sendEmailVerificationNotification();
 
-        Session::flash('status', 'verification-link-sent');
+        Session::flash('status', __('verification-link-sent'));
     }
 
     #[Computed]
@@ -73,7 +73,7 @@ new #[Title('Profile settings')] class extends Component {
         return ! Auth::user() instanceof MustVerifyEmail
             || (Auth::user() instanceof MustVerifyEmail && Auth::user()->hasVerifiedEmail());
     }
-}; ?>
+};?>
 
 <section class="w-full">
     @include('partials.settings-heading')
