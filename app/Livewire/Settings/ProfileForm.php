@@ -155,17 +155,17 @@ class ProfileForm extends Component
                 </div>
             @endif
 
-            <h1 class="text-2xl font-bold text-gray-900 mb-2">Profile Settings</h1>
-            <p class="text-gray-600 mb-8">Manage your account details and preferences.</p>
+            <h1 class="text-2xl font-bold text-gray-900 mb-2">{{ __('Profile Settings') }}</h1>
+            <p class="text-gray-600 mb-8">{{ __('Manage your account details and preferences.') }}</p>
 
             <form wire:submit="saveProfile" class="space-y-6">
                 {{-- Avatar --}}
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Profile Photo</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('Profile Photo') }}</label>
                     <div class="flex items-center gap-4">
                         <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden">
                             @if (Auth::user()->avatar_path)
-                                <img src="{{ Storage::url(Auth::user()->avatar_path) }}" alt="Profile photo" class="w-full h-full object-cover" />
+                                <img src="{{ Storage::url(Auth::user()->avatar_path) }}" alt="{{ __('Profile photo') }}" class="w-full h-full object-cover" />
                             @else
                                 <span class="flex items-center justify-center w-full h-full text-gray-400 text-xl">
                                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
@@ -174,7 +174,7 @@ class ProfileForm extends Component
                         </div>
                         <div>
                             <input wire:model="avatar" type="file" accept="image/*" class="text-sm" />
-                            <p class="text-xs text-gray-500 mt-1">JPG, PNG or GIF. Max {$maxUploadSize}KB.</p>
+                            <p class="text-xs text-gray-500 mt-1">{{ __('JPG, PNG or GIF. Max {$maxUploadSize}KB.') }}</p>
                         </div>
                         @if (Auth::user()->avatar_path)
                             <button
@@ -183,7 +183,7 @@ class ProfileForm extends Component
                                 wire:confirm="Remove your profile photo?"
                                 class="text-sm text-red-600 hover:underline"
                             >
-                                Remove Photo
+                                {{ __('Remove Photo') }}
                             </button>
                         @endif
                     </div>
@@ -194,15 +194,15 @@ class ProfileForm extends Component
 
                 {{-- Name --}}
                 <div>
-                    <label for="profile-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <label for="profile-name" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Full Name') }}</label>
                     <input
                         wire:model="name"
                         id="profile-name"
                         type="text"
-                        placeholder="Enter your full name"
+                        placeholder="{{ __('Enter your full name') }}"
                         class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     />
-                    <p class="mt-1 text-xs text-gray-500">This is how your name will appear across the application.</p>
+                    <p class="mt-1 text-xs text-gray-500">{{ __('This is how your name will appear across the application.') }}</p>
                     @error('name')
                         <p class="mt-1 text-sm text-red-600">{{ \$message }}</p>
                     @enderror
@@ -210,7 +210,7 @@ class ProfileForm extends Component
 
                 {{-- Email --}}
                 <div>
-                    <label for="profile-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <label for="profile-email" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Email Address') }}</label>
                     <input
                         wire:model="email"
                         id="profile-email"
@@ -218,16 +218,16 @@ class ProfileForm extends Component
                         placeholder="you@example.com"
                         class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     />
-                    <p class="mt-1 text-xs text-gray-500">We'll send a verification email if you change this.</p>
+                    <p class="mt-1 text-xs text-gray-500">{{ __("We'll send a verification email if you change this.") }}</p>
                     @error('email')
                         <p class="mt-1 text-sm text-red-600">{{ \$message }}</p>
                     @enderror
 
                     @if (! Auth::user()->hasVerifiedEmail())
                         <div class="mt-2 flex items-center gap-2">
-                            <span class="text-sm text-yellow-600">Your email is not verified.</span>
+                            <span class="text-sm text-yellow-600">{{ __('Your email is not verified.') }}</span>
                             <button type="button" wire:click="resendVerification" class="text-sm text-blue-600 hover:underline">
-                                Resend Verification Email
+                                {{ __('Resend Verification Email') }}
                             </button>
                         </div>
                     @endif
@@ -235,15 +235,15 @@ class ProfileForm extends Component
 
                 {{-- Bio --}}
                 <div>
-                    <label for="profile-bio" class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                    <label for="profile-bio" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Bio') }}</label>
                     <textarea
                         wire:model="bio"
                         id="profile-bio"
                         rows="3"
-                        placeholder="Tell us a little about yourself..."
+                        placeholder="{{ __('Tell us a little about yourself...') }}"
                         class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     ></textarea>
-                    <p class="mt-1 text-xs text-gray-500">Brief description for your profile. Maximum 500 characters.</p>
+                    <p class="mt-1 text-xs text-gray-500">{{ __('Brief description for your profile. Maximum 500 characters.') }}</p>
                     @error('bio')
                         <p class="mt-1 text-sm text-red-600">{{ \$message }}</p>
                     @enderror
@@ -251,39 +251,39 @@ class ProfileForm extends Component
 
                 {{-- Timezone --}}
                 <div>
-                    <label for="profile-timezone" class="block text-sm font-medium text-gray-700 mb-1">Timezone</label>
+                    <label for="profile-timezone" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Timezone') }}</label>
                     <select
                         wire:model="timezone"
                         id="profile-timezone"
                         class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     >
-                        <option value="">Select your timezone</option>
-                        <option value="America/New_York">Eastern Time (US & Canada)</option>
-                        <option value="America/Chicago">Central Time (US & Canada)</option>
-                        <option value="America/Denver">Mountain Time (US & Canada)</option>
-                        <option value="America/Los_Angeles">Pacific Time (US & Canada)</option>
-                        <option value="Europe/London">London</option>
-                        <option value="Europe/Paris">Paris</option>
-                        <option value="Asia/Tokyo">Tokyo</option>
+                        <option value="">{{ __('Select your timezone') }}</option>
+                        <option value="America/New_York">{{ __('Eastern Time (US & Canada)') }}</option>
+                        <option value="America/Chicago">{{ __('Central Time (US & Canada)') }}</option>
+                        <option value="America/Denver">{{ __('Mountain Time (US & Canada)') }}</option>
+                        <option value="America/Los_Angeles">{{ __('Pacific Time (US & Canada)') }}</option>
+                        <option value="Europe/London">{{ __('London') }}</option>
+                        <option value="Europe/Paris">{{ __('Paris') }}</option>
+                        <option value="Asia/Tokyo">{{ __('Tokyo') }}</option>
                     </select>
-                    <p class="mt-1 text-xs text-gray-500">Used for displaying dates and scheduling reminders.</p>
+                    <p class="mt-1 text-xs text-gray-500">{{ __('Used for displaying dates and scheduling reminders.') }}</p>
                 </div>
 
                 {{-- Language --}}
                 <div>
-                    <label for="profile-language" class="block text-sm font-medium text-gray-700 mb-1">Language</label>
+                    <label for="profile-language" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Language') }}</label>
                     <select
                         wire:model="language"
                         id="profile-language"
                         class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     >
-                        <option value="en">English</option>
-                        <option value="es">Spanish</option>
-                        <option value="fr">French</option>
-                        <option value="de">German</option>
-                        <option value="ja">Japanese</option>
+                        <option value="en">{{ __('English') }}</option>
+                        <option value="es">{{ __('Spanish') }}</option>
+                        <option value="fr">{{ __('French') }}</option>
+                        <option value="de">{{ __('German') }}</option>
+                        <option value="ja">{{ __('Japanese') }}</option>
                     </select>
-                    <p class="mt-1 text-xs text-gray-500">Choose your preferred language for the interface.</p>
+                    <p class="mt-1 text-xs text-gray-500">{{ __('Choose your preferred language for the interface.') }}</p>
                 </div>
 
                 {{-- Actions --}}
@@ -292,7 +292,7 @@ class ProfileForm extends Component
                         type="submit"
                         class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium"
                     >
-                        Save Changes
+                        {{ __('Save Changes') }}
                     </button>
                     <button
                         type="button"
@@ -300,7 +300,7 @@ class ProfileForm extends Component
                         wire:confirm="Are you sure you want to deactivate your account? This action can be reversed by contacting support."
                         class="text-sm text-red-600 hover:underline"
                     >
-                        Deactivate Account
+                        {{ __('Deactivate Account') }}
                     </button>
                 </div>
             </form>
