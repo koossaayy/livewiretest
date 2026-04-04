@@ -5,16 +5,16 @@
 ])
 
 @php
-    if ($variant === 'solid') {
-        throw new \Exception('The "solid" variant is not supported in Lucide.');
+    if ($variant === __('solid')) {
+        throw new \Exception(__('The "solid" variant is not supported in Lucide.'));
     }
 
     $classes = Flux::classes('shrink-0')->add(
         match ($variant) {
-            'outline' => '[:where(&)]:size-6',
-            'solid' => '[:where(&)]:size-6',
-            'mini' => '[:where(&)]:size-5',
-            'micro' => '[:where(&)]:size-4',
+            'outline' => __('[:where(&)]:size-6'),
+            'solid' => __('[:where(&)]:size-6'),
+            'mini' => __('[:where(&)]:size-5'),
+            'micro' => __('[:where(&)]:size-4'),
         },
     );
 
