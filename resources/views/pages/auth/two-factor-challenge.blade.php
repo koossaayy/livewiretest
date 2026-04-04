@@ -4,7 +4,7 @@
             class="relative w-full h-auto"
             x-cloak
             x-data="{
-                showRecoveryInput: @js($errors->has('recovery_code')),
+                showRecoveryInput: @js($errors->has('{{ __('recovery_code') }}')),
                 code: '',
                 recovery_code: '',
                 toggleInput() {
@@ -47,7 +47,7 @@
                                 x-model="code"
                                 length="6"
                                 name="code"
-                                label="OTP Code"
+                                label="{{ __('OTP Code') }}"
                                 label:sr-only
                                 class="mx-auto"
                              />
