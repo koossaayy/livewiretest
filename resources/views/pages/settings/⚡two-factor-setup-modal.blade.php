@@ -56,7 +56,7 @@ new class extends Component {
             $this->qrCodeSvg = $user->twoFactorQrCodeSvg();
             $this->manualSetupKey = decrypt($user->two_factor_secret);
         } catch (Exception) {
-            $this->addError('setupData', 'Failed to fetch setup data.');
+            $this->addError('setupData', __('Failed to fetch setup data.'));
 
             $this->reset('qrCodeSvg', 'manualSetupKey');
         }
@@ -148,7 +148,7 @@ new class extends Component {
             'buttonText' => __('Continue'),
         ];
     }
-}; ?>
+};?>
 
 <flux:modal
     name="two-factor-setup-modal"
@@ -188,7 +188,7 @@ new class extends Component {
                             name="code"
                             wire:model="code"
                             length="6"
-                            label="OTP Code"
+                            label="{{ __('OTP Code') }}"
                             label:sr-only
                             class="mx-auto"
                         />
