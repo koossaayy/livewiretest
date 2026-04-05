@@ -666,7 +666,7 @@
 
         {{-- String with special characters --}}
         <p class="text-sm text-gray-500 mt-2">
-            {{ __('Need help? Contact support at') }} support@example.com {{ __("— we're here 24/7.") }}
+            {{ __(':param_1 support@example.com :param_2', ['param_1' => __('Need help? Contact support at'), 'param_2' => __("— we're here 24/7.")]) }}
         </p>
 
         {{-- String that looks like code but is user-facing --}}
@@ -933,7 +933,7 @@
     {{-- 15. Script tag with strings that look translatable — must NOT be extracted --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('Order management loaded');
+            console.log( @json(__("Order management loaded")));
 
             const messages = {
                 success: @json(__("Operation completed successfully")),
