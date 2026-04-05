@@ -34,9 +34,9 @@ class Task extends Model
     public function getPriorityLabelAttribute(): string
     {
         return match (true) {
-            $this->priority >= 3 => 'high',
-            $this->priority >= 2 => 'medium',
-            default => 'low',
+            $this->priority >= 3 => __('high'),
+            $this->priority >= 2 => __('medium'),
+            default => __('low'),
         };
     }
 }
