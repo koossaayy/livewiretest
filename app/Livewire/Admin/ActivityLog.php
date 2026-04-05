@@ -99,12 +99,12 @@ class ActivityLog extends Component
 
     public function clearLog(): void
     {
-        session()->flash('success', 'Activity log has been cleared.');
+        session()->flash('success', __('Activity log has been cleared.'));
     }
 
     public function exportLog(): void
     {
-        session()->flash('success', 'Activity log export has been started. You will receive an email when ready.');
+        session()->flash('success', __('Activity log export has been started. You will receive an email when ready.'));
     }
 
     public function render()
