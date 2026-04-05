@@ -24,10 +24,10 @@ class CurrencySelector extends Component
                 <label class="block text-sm font-medium text-gray-700 mb-1">{{ $label }}</label>
             @endif
             <select wire:model="selected" class="w-full rounded-lg border-gray-300 shadow-sm">
-                <option value="USD">USD - US Dollar</option>
-                <option value="EUR">EUR - Euro</option>
-                <option value="GBP">GBP - British Pound</option>
-                <option value="CAD">CAD - Canadian Dollar</option>
+                <option value="USD">{{ __('USD - US Dollar') }}</option>
+                <option value="EUR">{{ __('EUR - Euro') }}</option>
+                <option value="GBP">{{ __('GBP - British Pound') }}</option>
+                <option value="CAD">{{ __('CAD - Canadian Dollar') }}</option>
             </select>
             @if ($description)
                 <p class="mt-1 text-xs text-gray-500">{{ $description }}</p>
