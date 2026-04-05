@@ -27,7 +27,7 @@
                     <flux:sidebar.item icon="shopping-bag" :href="route('admin.orders')" :current="request()->routeIs('admin.orders')" wire:navigate>
                         {{ __('Orders') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="list" :href="route('admin.activity')" :current="request()->routeIs('admin.activity')" wire:navigate>
+                    <flux:sidebar.item icon="eye" :href="route('admin.activity')" :current="request()->routeIs('admin.activity')" wire:navigate>
                         {{ __('Activity Log') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
