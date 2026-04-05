@@ -45,7 +45,7 @@ class OrderManagement extends Component
                 'is_gift' => false,
                 'channel' => 'web',
                 'created_at' => Carbon::parse('2026-04-01 10:30:00'),
-                'customer' => (object) ['name' => 'Sarah Johnson', 'email' => 'sarah@example.com'],
+                'customer' => (object) ['name' => __('Sarah Johnson'), 'email' => 'sarah@example.com'],
             ],
             (object) [
                 'id' => 2,
@@ -59,7 +59,7 @@ class OrderManagement extends Component
                 'is_gift' => true,
                 'channel' => 'mobile',
                 'created_at' => Carbon::parse('2026-03-28 14:15:00'),
-                'customer' => (object) ['name' => 'Mike Chen', 'email' => 'mike.chen@example.com'],
+                'customer' => (object) ['name' => __('Mike Chen'), 'email' => 'mike.chen@example.com'],
             ],
             (object) [
                 'id' => 3,
@@ -73,7 +73,7 @@ class OrderManagement extends Component
                 'is_gift' => false,
                 'channel' => 'web',
                 'created_at' => Carbon::parse('2026-04-03 09:00:00'),
-                'customer' => (object) ['name' => 'Emma Williams', 'email' => 'emma.w@example.com'],
+                'customer' => (object) ['name' => __('Emma Williams'), 'email' => 'emma.w@example.com'],
             ],
             (object) [
                 'id' => 4,
@@ -87,7 +87,7 @@ class OrderManagement extends Component
                 'is_gift' => false,
                 'channel' => 'pos',
                 'created_at' => Carbon::parse('2026-03-20 16:45:00'),
-                'customer' => (object) ['name' => 'James Rodriguez', 'email' => 'j.rodriguez@example.com'],
+                'customer' => (object) ['name' => __('James Rodriguez'), 'email' => 'j.rodriguez@example.com'],
             ],
             (object) [
                 'id' => 5,
@@ -101,7 +101,7 @@ class OrderManagement extends Component
                 'is_gift' => false,
                 'channel' => 'marketplace',
                 'created_at' => Carbon::parse('2026-03-25 11:20:00'),
-                'customer' => (object) ['name' => 'Lisa Park', 'email' => 'lisa.park@example.com'],
+                'customer' => (object) ['name' => __('Lisa Park'), 'email' => 'lisa.park@example.com'],
             ],
             (object) [
                 'id' => 6,
@@ -115,7 +115,7 @@ class OrderManagement extends Component
                 'is_gift' => true,
                 'channel' => 'web',
                 'created_at' => Carbon::parse('2026-03-15 08:30:00'),
-                'customer' => (object) ['name' => 'David Kim', 'email' => 'david.kim@example.com'],
+                'customer' => (object) ['name' => __('David Kim'), 'email' => 'david.kim@example.com'],
             ],
             (object) [
                 'id' => 7,
@@ -129,7 +129,7 @@ class OrderManagement extends Component
                 'is_gift' => false,
                 'channel' => 'mobile',
                 'created_at' => Carbon::parse('2026-04-04 13:00:00'),
-                'customer' => (object) ['name' => 'Anna Müller', 'email' => 'anna.m@example.com'],
+                'customer' => (object) ['name' => __('Anna Müller'), 'email' => 'anna.m@example.com'],
             ],
         ];
     }
@@ -154,52 +154,52 @@ class OrderManagement extends Component
     {
         try {
             Log::info('Order export initiated', ['admin_id' => auth()->id()]);
-            session()->flash('success', 'Order export is being prepared. You will receive an email when ready.');
+            session()->flash('success', __('Order export is being prepared. You will receive an email when ready.'));
         } catch (\Exception $e) {
             Log::error('Order export failed', ['error' => $e->getMessage()]);
-            session()->flash('error', 'Failed to start export. Please try again.');
+            session()->flash('error', __('Failed to start export. Please try again.'));
         }
     }
 
     public function syncInventory(): void
     {
-        session()->flash('success', 'Inventory sync has been queued. This may take a few minutes.');
+        session()->flash('success', __('Inventory sync has been queued. This may take a few minutes.'));
     }
 
     public function markAsShipped(int $orderId): void
     {
-        session()->flash('success', 'Order has been marked as shipped. Customer notification sent.');
+        session()->flash('success', __('Order has been marked as shipped. Customer notification sent.'));
     }
 
     public function capturePayment(int $orderId): void
     {
-        session()->flash('success', 'Payment captured successfully.');
+        session()->flash('success', __('Payment captured successfully.'));
     }
 
     public function cancelOrder(int $orderId): void
     {
-        session()->flash('success', 'Order has been cancelled and the customer has been notified.');
+        session()->flash('success', __('Order has been cancelled and the customer has been notified.'));
     }
 
     public function deleteOrder(int $orderId): void
     {
-        session()->flash('success', 'Order has been permanently deleted.');
+        session()->flash('success', __('Order has been permanently deleted.'));
     }
 
     public function processRefund(int $orderId): void
     {
-        session()->flash('success', 'Refund has been processed. The customer will receive confirmation shortly.');
+        session()->flash('success', __('Refund has been processed. The customer will receive confirmation shortly.'));
         $this->reset(['refundNotes', 'refundAmount']);
     }
 
     public function bulkMarkShipped(): void
     {
-        session()->flash('success', 'Selected orders have been marked as shipped.');
+        session()->flash('success', __('Selected orders have been marked as shipped.'));
     }
 
     public function bulkPrintLabels(): void
     {
-        session()->flash('success', 'Shipping labels are being generated.');
+        session()->flash('success', __('Shipping labels are being generated.'));
     }
 
     public function render()

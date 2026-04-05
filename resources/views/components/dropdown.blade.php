@@ -13,7 +13,7 @@
         class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-left text-sm shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
     >
         <span class="text-gray-500">{{ $placeholder }}</span>
-        <span class="float-right">&darr;</span>
+        <span class="float-right">{{ __('&darr;') }}</span>
     </button>
     <div
         x-show="open"

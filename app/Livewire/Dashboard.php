@@ -49,7 +49,7 @@ class Dashboard extends Component
         $task = Task::where('user_id', Auth::id())->findOrFail($taskId);
         $task->update(['status' => 'completed']);
 
-        session()->flash('success', 'Task completed! Great job.');
+        session()->flash('success', __('Task completed! Great job.'));
     }
 
     public function archiveCompleted(): void
@@ -59,9 +59,9 @@ class Dashboard extends Component
             ->update(['archived' => true]);
 
         if ($count > 0) {
-            session()->flash('success', "{$count} completed tasks have been archived.");
+            session()->flash('success', __(':count completed tasks have been archived.', ['count' => $count]));
         } else {
-            session()->flash('info', 'No completed tasks to archive.');
+            session()->flash('info', __('No completed tasks to archive.'));
         }
     }
 
@@ -69,7 +69,7 @@ class Dashboard extends Component
     {
         try {
             // Export logic...
-            session()->flash('success', 'Your tasks have been exported successfully.');
+            session()->flash('success', __('Your tasks have been exported successfully.'));
         } catch (\Exception $e) {
             $this->errorMessage = 'Unable to export tasks at this time.';
             session()->flash('error', 'Export failed. Please try again later.');
@@ -102,20 +102,20 @@ class Dashboard extends Component
             {{-- Dashboard Header --}}
             <div class="flex items-center justify-between mb-8">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
-                    <p class="text-gray-600 mt-1">Here's what's happening with your tasks.</p>
+                    <h1 class="text-3xl font-bold text-gray-900">{{ __('Dashboard') }}</h1>
+                    <p class="text-gray-600 mt-1">{{ __("Here's what's happening with your tasks.") }}</p>
                 </div>
                 <div class="flex items-center gap-3">
                     <select wire:model.live="period" class="rounded-lg border-gray-300 shadow-sm text-sm">
-                        <option value="today">Today</option>
-                        <option value="week">This Week</option>
-                        <option value="month">This Month</option>
+                        <option value="today">{{ __('Today') }}</option>
+                        <option value="week">{{ __('This Week') }}</option>
+                        <option value="month">{{ __('This Month') }}</option>
                     </select>
                     <button
                         wire:click="exportTasks"
                         class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 text-sm font-medium"
                     >
-                        Export Tasks
+                        {{ __('Export Tasks') }}
                     </button>
                 </div>
             </div>
@@ -123,19 +123,19 @@ class Dashboard extends Component
             {{-- Stats Cards --}}
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                    <p class="text-sm font-medium text-gray-500">Total Tasks</p>
+                    <p class="text-sm font-medium text-gray-500">{{ __('Total Tasks') }}</p>
                     <p class="text-3xl font-bold text-gray-900 mt-2">{{ $this->stats['total'] }}</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                    <p class="text-sm font-medium text-gray-500">Completed</p>
+                    <p class="text-sm font-medium text-gray-500">{{ __('Completed') }}</p>
                     <p class="text-3xl font-bold text-green-600 mt-2">{{ $this->stats['completed'] }}</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                    <p class="text-sm font-medium text-gray-500">In Progress</p>
+                    <p class="text-sm font-medium text-gray-500">{{ __('In Progress') }}</p>
                     <p class="text-3xl font-bold text-blue-600 mt-2">{{ $this->stats['in_progress'] }}</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                    <p class="text-sm font-medium text-gray-500">Overdue</p>
+                    <p class="text-sm font-medium text-gray-500">{{ __('Overdue') }}</p>
                     <p class="text-3xl font-bold text-red-600 mt-2">{{ $this->stats['overdue'] }}</p>
                 </div>
             </div>
@@ -143,14 +143,14 @@ class Dashboard extends Component
             {{-- Admin Section --}}
             @can('manage-tasks')
                 <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-8">
-                    <h2 class="text-lg font-semibold text-yellow-800 mb-2">Administration</h2>
-                    <p class="text-sm text-yellow-700 mb-4">You have admin privileges. You can manage all user tasks from here.</p>
+                    <h2 class="text-lg font-semibold text-yellow-800 mb-2">{{ __('Administration') }}</h2>
+                    <p class="text-sm text-yellow-700 mb-4">{{ __('You have admin privileges. You can manage all user tasks from here.') }}</p>
                     <div class="flex gap-3">
                         <a href="/admin/users" wire:navigate class="text-sm font-medium text-yellow-800 hover:underline">
-                            Manage Users
+                            {{ __('Manage Users') }}
                         </a>
                         <a href="/admin/reports" wire:navigate class="text-sm font-medium text-yellow-800 hover:underline">
-                            View Reports
+                            {{ __('View Reports') }}
                         </a>
                     </div>
                 </div>
@@ -159,15 +159,15 @@ class Dashboard extends Component
             {{-- Recent Tasks Table --}}
             <div class="bg-white rounded-xl shadow-sm border border-gray-200">
                 <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-                    <h2 class="text-lg font-semibold text-gray-900">Recent Tasks</h2>
+                    <h2 class="text-lg font-semibold text-gray-900">{{ __('Recent Tasks') }}</h2>
                     <div class="flex items-center gap-3">
                         <span class="text-sm text-gray-500">{{ __('Showing latest activity') }}</span>
                         <button
                             wire:click="archiveCompleted"
-                            wire:confirm="Are you sure you want to archive all completed tasks?"
+                            wire:confirm="{{ __('Are you sure you want to archive all completed tasks?') }}"
                             class="text-sm text-gray-600 hover:text-gray-900"
                         >
-                            Archive Completed
+                            {{ __('Archive Completed') }}
                         </button>
                     </div>
                 </div>
@@ -175,11 +175,11 @@ class Dashboard extends Component
                 <table class="w-full">
                     <thead>
                         <tr class="border-b border-gray-100">
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Task') }}</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Status') }}</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Due Date') }}</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Priority') }}</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -207,18 +207,18 @@ class Dashboard extends Component
                                             wire:click="markComplete({{ $task->id }})"
                                             class="text-sm text-green-600 hover:underline"
                                         >
-                                            Mark Complete
+                                            {{ __('Mark Complete') }}
                                         </button>
                                     @else
-                                        <span class="text-sm text-gray-400">Done</span>
+                                        <span class="text-sm text-gray-400">{{ __('Done') }}</span>
                                     @endif
                                 </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="5" class="px-6 py-12 text-center">
-                                    <p class="text-gray-500 text-lg">No tasks yet</p>
-                                    <p class="text-gray-400 text-sm mt-1">Create your first task to get started.</p>
+                                    <p class="text-gray-500 text-lg">{{ __('No tasks yet') }}</p>
+                                    <p class="text-gray-400 text-sm mt-1">{{ __('Create your first task to get started.') }}</p>
                                 </td>
                             </tr>
                         @endforelse
