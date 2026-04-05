@@ -40,7 +40,7 @@ class UserTable extends Component
         $user = User::findOrFail($userId);
 
         if ($user->id === auth()->id()) {
-            session()->flash('error', 'You cannot suspend your own account.');
+            session()->flash('error', __('You cannot suspend your own account.'));
             return;
         }
 
@@ -51,7 +51,7 @@ class UserTable extends Component
             'user_id' => $userId,
         ]);
 
-        session()->flash('success', 'User has been suspended.');
+        session()->flash('success', __('User has been suspended.'));
         $this->dispatch('user-updated');
     }
 
@@ -65,7 +65,7 @@ class UserTable extends Component
             'user_id' => $userId,
         ]);
 
-        session()->flash('success', 'User account has been reactivated.');
+        session()->flash('success', __('User account has been reactivated.'));
         $this->dispatch('user-updated');
     }
 
@@ -74,12 +74,12 @@ class UserTable extends Component
         $user = User::findOrFail($userId);
 
         if ($user->id === auth()->id()) {
-            session()->flash('error', 'You cannot delete your own account.');
+            session()->flash('error', __('You cannot delete your own account.'));
             return;
         }
 
         if ($user->hasRole('admin')) {
-            session()->flash('error', 'Administrator accounts cannot be deleted from here.');
+            session()->flash('error', __('Administrator accounts cannot be deleted from here.'));
             return;
         }
 
@@ -91,7 +91,7 @@ class UserTable extends Component
             'deleted_user_id' => $userId,
         ]);
 
-        session()->flash('success', 'User and all associated data have been permanently deleted.');
+        session()->flash('success', __('User and all associated data have been permanently deleted.'));
     }
 
     public function exportUsers(): void
@@ -99,10 +99,10 @@ class UserTable extends Component
         try {
             Log::info('User export initiated', ['admin_id' => auth()->id()]);
             // Export logic...
-            session()->flash('success', 'User data export is being prepared. You will receive an email when it is ready.');
+            session()->flash('success', __('User data export is being prepared. You will receive an email when it is ready.'));
         } catch (\Exception $e) {
             Log::error('User export failed', ['error' => $e->getMessage()]);
-            session()->flash('error', 'Failed to start export. Please try again.');
+            session()->flash('error', __('Failed to start export. Please try again.'));
         }
     }
 
