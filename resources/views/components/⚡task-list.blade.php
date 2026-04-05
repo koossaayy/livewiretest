@@ -132,25 +132,25 @@ class extends Component
     {{-- Page Header --}}
     <div class="flex items-center justify-between mb-6">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">Task Manager</h1>
-            <p class="text-gray-600 mt-1">Welcome back, {{ auth()->user()->name }}! Here are your tasks.</p>
+            <h1 class="text-2xl font-bold text-gray-900">{{ __('Task Manager') }}</h1>
+            <p class="text-gray-600 mt-1">{{ __('Welcome back,') }} {{ auth()->user()->name }}{{ __('! Here are your tasks.') }}</p>
         </div>
         <a href="/tasks/archive" wire:navigate class="text-blue-600 hover:underline">
-            View Archived Tasks
+            {{ __('View Archived Tasks') }}
         </a>
     </div>
 
     {{-- Stats Overview --}}
     @php
         $statusLabels = [
-            'total' => 'Total Tasks',
-            'completed' => 'Completed',
-            'overdue' => 'Overdue',
-            'urgent' => 'Needs Attention',
+            'total' => __('Total Tasks'),
+            'completed' => __('Completed'),
+            'overdue' => __('Overdue'),
+            'urgent' => __('Needs Attention'),
         ];
-        $motivationalMessage = 'Keep up the great work!';
+        $motivationalMessage = __('Keep up the great work!');
         if ($overdueCount > 0) {
-            $motivationalMessage = 'You have overdue tasks that need your attention.';
+            $motivationalMessage = __('You have overdue tasks that need your attention.');
         }
     @endphp
 
@@ -180,11 +180,11 @@ class extends Component
         <input
             wire:model="quickTaskTitle"
             type="text"
-            placeholder="Add a new task..."
+            placeholder="{{ __('Add a new task...') }}"
             class="flex-1 rounded-lg border-gray-300 shadow-sm focus:ring-blue-500"
         />
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-            Add Task
+            {{ __('Add Task') }}
         </button>
     </form>
 
@@ -194,28 +194,28 @@ class extends Component
 
     {{-- Filters --}}
     <div class="flex items-center gap-4 mb-4">
-        <label for="search" class="text-sm font-medium text-gray-700">Search tasks</label>
+        <label for="search" class="text-sm font-medium text-gray-700">{{ __('Search tasks') }}</label>
         <input
             wire:model.live.debounce.300ms="search"
             id="search"
             type="search"
-            placeholder="Filter by title..."
+            placeholder="{{ __('Filter by title...') }}"
             class="rounded-lg border-gray-300 shadow-sm"
         />
 
-        <label for="status-filter" class="text-sm font-medium text-gray-700">Status</label>
+        <label for="status-filter" class="text-sm font-medium text-gray-700">{{ __('Status') }}</label>
         <select wire:model.live="filterStatus" id="status-filter" class="rounded-lg border-gray-300 shadow-sm">
-            <option value="all">All Tasks</option>
-            <option value="pending">Pending</option>
-            <option value="in_progress">In Progress</option>
-            <option value="completed">Completed</option>
+            <option value="all">{{ __('All Tasks') }}</option>
+            <option value="pending">{{ __('Pending') }}</option>
+            <option value="in_progress">{{ __('In Progress') }}</option>
+            <option value="completed">{{ __('Completed') }}</option>
         </select>
     </div>
 
     {{-- Task List --}}
     <div class="bg-white rounded-lg shadow">
         <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-            <h2 class="text-lg font-semibold text-gray-800">Your Tasks</h2>
+            <h2 class="text-lg font-semibold text-gray-800">{{ __('Your Tasks') }}</h2>
             <span class="text-sm text-gray-500">{{ __('Showing results') }}</span>
         </div>
 
@@ -224,17 +224,17 @@ class extends Component
                 <tr class="border-b border-gray-200">
                     <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">
                         <button wire:click="sortBy('title')" class="hover:text-gray-900">
-                            Task Name
+                            {{ __('Task Name') }}
                         </button>
                     </th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Priority</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">{{ __('Priority') }}</th>
                     <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">
                         <button wire:click="sortBy('due_date')" class="hover:text-gray-900">
-                            Due Date
+                            {{ __('Due Date') }}
                         </button>
                     </th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Status</th>
-                    <th class="px-4 py-3 text-right text-sm font-medium text-gray-600">Actions</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">{{ __('Status') }}</th>
+                    <th class="px-4 py-3 text-right text-sm font-medium text-gray-600">{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -248,27 +248,27 @@ class extends Component
                         <td class="px-4 py-3 text-sm">
                             @if ($task->priority >= 3)
                                 <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                    High Priority
+                                    {{ __('High Priority') }}
                                 </span>
                             @elseif ($task->priority >= 2)
                                 <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                    Medium Priority
+                                    {{ __('Medium Priority') }}
                                 </span>
                             @else
                                 <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                    Low Priority
+                                    {{ __('Low Priority') }}
                                 </span>
                             @endif
                         </td>
                         <td class="px-4 py-3 text-sm text-gray-600">
                             @if ($task->due_date)
                                 @if ($task->due_date < now() && $task->status !== 'completed')
-                                    <span class="text-red-600 font-medium">Overdue: {{ $task->due_date->diffForHumans() }}</span>
+                                    <span class="text-red-600 font-medium">{{ __('Overdue:') }} {{ $task->due_date->diffForHumans() }}</span>
                                 @else
                                     {{ $task->due_date->format('M d, Y') }}
                                 @endif
                             @else
-                                No due date
+                                {{ __('No due date') }}
                             @endif
                         </td>
                         <td class="px-4 py-3 text-sm">
@@ -280,25 +280,25 @@ class extends Component
                                 class="text-sm text-blue-600 hover:underline"
                             >
                                 @if ($task->status === 'completed')
-                                    Reopen
+                                    {{ __('Reopen') }}
                                 @else
-                                    Complete
+                                    {{ __('Complete') }}
                                 @endif
                             </button>
                             <button
                                 wire:click="deleteTask({{ $task->id }})"
-                                wire:confirm="Are you sure you want to delete this task?"
+                                wire:confirm="{{ __('Are you sure you want to delete this task?') }}"
                                 class="text-sm text-red-600 hover:underline"
                             >
-                                Delete
+                                {{ __('Delete') }}
                             </button>
                         </td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="5" class="px-4 py-8 text-center text-gray-500">
-                            <p class="text-lg font-medium">No tasks found</p>
-                            <p class="text-sm mt-1">Get started by adding your first task above.</p>
+                            <p class="text-lg font-medium">{{ __('No tasks found') }}</p>
+                            <p class="text-sm mt-1">{{ __('Get started by adding your first task above.') }}</p>
                         </td>
                     </tr>
                 @endforelse
