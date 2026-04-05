@@ -121,12 +121,12 @@ new class extends Component
                 <div class="flex items-center justify-between mb-4">
                     <h2 id="modal-title" class="text-xl font-semibold text-gray-900">
                         @if ($editingTaskId)
-                            Edit Task
+                            {{ __('Edit Task') }}
                         @else
-                            Create New Task
+                            {{ __('Create New Task') }}
                         @endif
                     </h2>
-                    <button wire:click="closeModal" class="text-gray-400 hover:text-gray-600" aria-label="Close modal">
+                    <button wire:click="closeModal" class="text-gray-400 hover:text-gray-600" aria-label="{{ __('Close modal') }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -143,13 +143,13 @@ new class extends Component
                     {{-- Title --}}
                     <div>
                         <label for="task-title" class="block text-sm font-medium text-gray-700 mb-1">
-                            Task Title
+                            {{ __('Task Title') }}
                         </label>
                         <input
                             wire:model="title"
                             id="task-title"
                             type="text"
-                            placeholder="Enter a descriptive task title"
+                            placeholder="{{ __('Enter a descriptive task title') }}"
                             class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         />
                         @error('title')
@@ -160,16 +160,16 @@ new class extends Component
                     {{-- Description --}}
                     <div>
                         <label for="task-description" class="block text-sm font-medium text-gray-700 mb-1">
-                            Description
+                            {{ __('Description') }}
                         </label>
                         <textarea
                             wire:model="description"
                             id="task-description"
                             rows="3"
-                            placeholder="Add details about this task..."
+                            placeholder="{{ __('Add details about this task...') }}"
                             class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         ></textarea>
-                        <p class="mt-1 text-xs text-gray-500">Optional. Provide additional context for this task.</p>
+                        <p class="mt-1 text-xs text-gray-500">{{ __('Optional. Provide additional context for this task.') }}</p>
                         @error('description')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -178,16 +178,16 @@ new class extends Component
                     {{-- Priority --}}
                     <div>
                         <label for="task-priority" class="block text-sm font-medium text-gray-700 mb-1">
-                            Priority Level
+                            {{ __('Priority Level') }}
                         </label>
                         <select
                             wire:model="priority"
                             id="task-priority"
                             class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         >
-                            <option value="low">Low Priority</option>
-                            <option value="medium">Medium Priority</option>
-                            <option value="high">High Priority</option>
+                            <option value="low">{{ __('Low Priority') }}</option>
+                            <option value="medium">{{ __('Medium Priority') }}</option>
+                            <option value="high">{{ __('High Priority') }}</option>
                         </select>
                         @error('priority')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -197,7 +197,7 @@ new class extends Component
                     {{-- Due Date --}}
                     <div>
                         <label for="task-due-date" class="block text-sm font-medium text-gray-700 mb-1">
-                            Due Date
+                            {{ __('Due Date') }}
                         </label>
                         <input
                             wire:model="dueDate"
@@ -205,7 +205,7 @@ new class extends Component
                             type="date"
                             class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         />
-                        <p class="mt-1 text-xs text-gray-500">Leave blank if there is no deadline.</p>
+                        <p class="mt-1 text-xs text-gray-500">{{ __('Leave blank if there is no deadline.') }}</p>
                         @error('dueDate')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -214,14 +214,14 @@ new class extends Component
                     {{-- Assignee --}}
                     <div>
                         <label for="task-assignee" class="block text-sm font-medium text-gray-700 mb-1">
-                            Assign To
+                            {{ __('Assign To') }}
                         </label>
                         <select
                             wire:model="assigneeId"
                             id="task-assignee"
                             class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         >
-                            <option value="">Unassigned</option>
+                            <option value="">{{ __('Unassigned') }}</option>
                             @foreach ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
@@ -238,16 +238,16 @@ new class extends Component
                             wire:click="closeModal"
                             class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
                         >
-                            Cancel
+                            {{ __('Cancel') }}
                         </button>
                         <button
                             type="submit"
                             class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
                         >
                             @if ($editingTaskId)
-                                Save Changes
+                                {{ __('Save Changes') }}
                             @else
-                                Create Task
+                                {{ __('Create Task') }}
                             @endif
                         </button>
                     </div>
@@ -267,7 +267,7 @@ new class extends Component
                     duration: 3000,
                     position: 'top-right',
                 };
-                const message = params.message || 'Action completed';
+                const message = params.message || @json(__("Action completed"));
                 const type = params.type || 'info';
                 const title = type === 'error' ? 'Error' : 'Success';
 

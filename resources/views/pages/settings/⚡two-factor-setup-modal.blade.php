@@ -188,7 +188,7 @@ new class extends Component {
                             name="code"
                             wire:model="code"
                             length="6"
-                            label="OTP Code"
+                            label="{{ __('OTP Code') }}"
                             label:sr-only
                             class="mx-auto"
                         />
@@ -266,7 +266,7 @@ new class extends Component {
                                     this.copied = true;
                                     setTimeout(() => this.copied = false, 1500);
                                 } catch (e) {
-                                    console.warn('Could not copy to clipboard');
+                                    console.warn('{{ __('Could not copy to clipboard') }}');
                                 }
                             }
                         }"
